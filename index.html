@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LouerFacile : Gérez vos loyers sans effort</title>
+  <meta name="description" content="LouerFacile simplifie la gestion de vos biens locatifs : suivi des paiements, quittances PDF, relances automatiques. Essai gratuit 1 mois." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --blue-900: #0F2557;
+      --blue-700: #1A3E99;
+      --blue-500: #2D60E8;
+      --blue-100: #E8EFFE;
+      --blue-50:  #F4F7FF;
+      --green:    #16A34A;
+      --green-50: #F0FDF4;
+      --gray-900: #111827;
+      --gray-600: #4B5563;
+      --gray-400: #9CA3AF;
+      --gray-200: #E5E7EB;
+      --gray-100: #F3F4F6;
+      --white:    #FFFFFF;
+      --radius:   12px;
+      --shadow:   0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT ─────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+
+    /* ── TYPOGRAPHY ─────────────────────────────── */
+    .display {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--blue-900);
+    }
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--blue-900);
+      line-height: 1.2;
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--blue-500);
+      margin-bottom: 12px;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--blue-500); }
+    .btn-nav {
+      background: var(--blue-500);
+      color: var(--white) !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .15s;
+    }
+    .btn-nav:hover { background: var(--blue-700) !important; color: var(--white) !important; }
+
+    /* ── HERO ───────────────────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, var(--blue-50) 0%, var(--white) 60%);
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-50);
+      border: 1px solid #BBF7D0;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--gray-600);
+      margin-top: 16px;
+      max-width: 460px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue-500);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background .15s, transform .1s;
+    }
+    .btn-primary:hover { background: var(--blue-700); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .btn-secondary:hover { color: var(--blue-500); }
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    /* ── HERO CARD (mockup) ─────────────────────── */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .mock-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+    }
+    .mock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .mock-title { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+    .mock-month { font-size: 12px; color: var(--gray-400); }
+    .mock-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 13px;
+    }
+    .mock-row:last-child { border-bottom: none; }
+    .mock-name { font-weight: 500; color: var(--gray-900); }
+    .mock-amount { font-weight: 600; color: var(--gray-900); }
+    .badge-paid { background: #DCFCE7; color: #15803D; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+    .badge-late { background: #FEE2E2; color: #DC2626; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+    .badge-pending { background: #FEF9C3; color: #A16207; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+    .mock-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mock-stat {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: var(--shadow);
+    }
+    .mock-stat-label { font-size: 11px; color: var(--gray-400); margin-bottom: 4px; }
+    .mock-stat-value { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--blue-900); }
+    .mock-stat-value.green { color: var(--green); }
+
+    /* ── LOGOS / SOCIAL PROOF ───────────────────── */
+    .proof {
+      background: var(--gray-100);
+      padding: 28px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .proof-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+    .proof-stat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .proof-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gray-400); }
+
+    /* ── FEATURES ───────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--blue-100);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .feature-title { font-size: 15px; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ───────────────────────────── */
+    .how { background: var(--blue-50); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+      position: relative;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--blue-500);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--gray-900); }
+    .step-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+
+    /* ── PRICING ────────────────────────────────── */
+    .pricing-card {
+      max-width: 420px;
+      margin: 48px auto 0;
+      background: var(--white);
+      border: 2px solid var(--blue-500);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(45,96,232,.12);
+    }
+    .pricing-badge {
+      display: inline-block;
+      background: var(--green-50);
+      color: var(--green);
+      border: 1px solid #BBF7D0;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .pricing-price {
+      font-family: 'Sora', sans-serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--blue-900);
+      line-height: 1;
+    }
+    .pricing-price sup { font-size: 24px; vertical-align: super; }
+    .pricing-period { font-size: 14px; color: var(--gray-400); margin-top: 6px; }
+    .pricing-features {
+      list-style: none;
+      margin: 28px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+    .pricing-features li::before {
+      content: '✓';
+      width: 20px;
+      height: 20px;
+      background: var(--green-50);
+      color: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pricing-cta {
+      display: block;
+      background: var(--blue-500);
+      color: var(--white);
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background .15s;
+      margin-top: 4px;
+    }
+    .pricing-cta:hover { background: var(--blue-700); }
+    .pricing-note { font-size: 12px; color: var(--gray-400); margin-top: 14px; }
+
+    /* ── TESTIMONIALS ───────────────────────────── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .stars { color: #FBBF24; font-size: 16px; letter-spacing: 2px; margin-bottom: 12px; }
+    .testimonial-text { font-size: 14px; color: var(--gray-600); line-height: 1.7; font-style: italic; }
+    .testimonial-author { margin-top: 16px; }
+    .author-name { font-size: 14px; font-weight: 600; color: var(--gray-900); }
+    .author-role { font-size: 12px; color: var(--gray-400); }
+
+    /* ── FAQ ────────────────────────────────────── */
+    .faq { background: var(--gray-100); }
+    .faq-list {
+      max-width: 720px;
+      margin: 48px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 18px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .faq-q:hover { color: var(--blue-500); }
+    .faq-icon { font-size: 18px; color: var(--blue-500); flex-shrink: 0; transition: transform .2s; }
+    .faq-a {
+      display: none;
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ── CTA FINAL ──────────────────────────────── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      text-align: center;
+      padding: 96px 24px;
+    }
+    .cta-final .display { color: var(--white); }
+    .cta-final p { color: rgba(255,255,255,.7); font-size: 18px; margin-top: 16px; }
+    .cta-final .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--blue-700);
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 36px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .cta-final .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .cta-final-note { color: rgba(255,255,255,.5); font-size: 13px; margin-top: 14px; }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--blue-900);
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-logo {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,.4); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .15s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      section { padding: 56px 0; }
+    }
+    @media (max-width: 600px) {
+      .mock-stats { grid-template-columns: 1fr 1fr; }
+      .pricing-card { padding: 28px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity .5s ease, transform .5s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ─────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">🏠 LouerFacile</div>
+    <div class="nav-links">
+      <a href="#features">Fonctionnalités</a>
+      <a href="#how">Comment ça marche</a>
+      <a href="#pricing">Tarifs</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://gestion-loyers-phi.vercel.app/" class="btn-nav">Se connecter</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────── -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-badge">🎁 1 mois gratuit, sans engagement</div>
+      <h1 class="display">Gérez vos loyers<br>sans Excel, sans stress.</h1>
+      <p class="hero-sub">LouerFacile centralise vos biens, suit vos paiements et génère vos quittances en un clic, pensé pour les propriétaires de 1 à 5 biens.</p>
+      <div class="hero-cta">
+        <a href="https://buy.stripe.com/test_28E14p9hg9uEbnT4Lg8AE00" class="btn-primary">Essayer gratuitement →</a>
+        <a href="#how" class="btn-secondary">Voir comment ça marche ↓</a>
+      </div>
+      <p class="hero-note">Aucune carte bancaire requise pendant l'essai · Annulable à tout moment</p>
+    </div>
+    <div class="hero-visual fade-up">
+      <div class="mock-stats">
+        <div class="mock-stat">
+          <div class="mock-stat-label">Loyers attendus</div>
+          <div class="mock-stat-value">2 400€</div>
+        </div>
+        <div class="mock-stat">
+          <div class="mock-stat-label">Loyers reçus</div>
+          <div class="mock-stat-value green">1 850€</div>
+        </div>
+      </div>
+      <div class="mock-card">
+        <div class="mock-header">
+          <span class="mock-title">Paiements - Juin 2026</span>
+          <span class="mock-month">3 locataires</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-name">Marie Dupont</span>
+          <span class="mock-amount">850€</span>
+          <span class="badge-paid">✓ Payé</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-name">Thomas Bernard</span>
+          <span class="mock-amount">750€</span>
+          <span class="badge-late">⚠ En retard 5j</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-name">Julie Martin</span>
+          <span class="mock-amount">800€</span>
+          <span class="badge-pending">En attente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ───────────────────────────── -->
+<div class="proof">
+  <div class="container proof-inner">
+    <span class="proof-stat">🏠 Conçu pour les propriétaires particuliers</span>
+    <span class="proof-dot"></span>
+    <span class="proof-stat">📄 Quittances conformes à la loi française</span>
+    <span class="proof-dot"></span>
+    <span class="proof-stat">🔒 Données sécurisées et hébergées en Europe</span>
+    <span class="proof-dot"></span>
+    <span class="proof-stat">📱 Accessible sur mobile, tablette et ordinateur</span>
+  </div>
+</div>
+
+<!-- ── FEATURES ───────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="eyebrow">Fonctionnalités</div>
+    <h2 class="section-title">Tout ce dont vous avez besoin,<br>rien de superflu.</h2>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🏠</div>
+        <div class="feature-title">Gestion des biens & locataires</div>
+        <div class="feature-desc">Ajoutez vos biens et vos locataires en quelques secondes. Toutes les informations au même endroit, accessibles partout.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">💶</div>
+        <div class="feature-title">Suivi des paiements en temps réel</div>
+        <div class="feature-desc">Visualisez d'un coup d'œil qui a payé, qui est en retard, et depuis combien de jours. Fini les tableaux Excel interminables.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📄</div>
+        <div class="feature-title">Quittances PDF en 1 clic</div>
+        <div class="feature-desc">Générez des quittances légales et professionnelles instantanément. Conformes à la législation française, prêtes à envoyer.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📧</div>
+        <div class="feature-title">Relances par email</div>
+        <div class="feature-desc">Envoyez une relance professionnelle à votre locataire en un clic. Plus besoin de rédiger le même email à chaque fois.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Export annuel pour votre déclaration</div>
+        <div class="feature-desc">Téléchargez un récapitulatif de tous vos loyers perçus, par bien, prêt à utiliser pour votre déclaration de revenus fonciers.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Accessible sur tous vos appareils</div>
+        <div class="feature-desc">Depuis votre téléphone, tablette ou ordinateur. Vos données sont synchronisées en temps réel, où que vous soyez.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────── -->
+<section id="how" class="how">
+  <div class="container">
+    <div class="eyebrow">Comment ça marche</div>
+    <h2 class="section-title">Opérationnel en moins de 5 minutes.</h2>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">1</div>
+        <div class="step-title">Créez votre compte</div>
+        <div class="step-desc">Inscrivez-vous en 30 secondes avec votre email. Aucune carte bancaire requise pendant le mois d'essai gratuit.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">2</div>
+        <div class="step-title">Ajoutez vos biens et locataires</div>
+        <div class="step-desc">Renseignez vos propriétés (adresse, loyer, charges) et associez-y vos locataires. Simple et rapide.</div>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">3</div>
+        <div class="step-title">Gérez vos loyers chaque mois</div>
+        <div class="step-desc">Générez les loyers du mois en un clic, suivez les paiements, envoyez les quittances. Tout est automatisé.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ────────────────────────────────── -->
+<section id="pricing">
+  <div class="container" style="text-align: center;">
+    <div class="eyebrow">Tarifs</div>
+    <h2 class="section-title">Un prix simple et transparent.</h2>
+    <div class="pricing-card fade-up">
+      <div class="pricing-badge">🎁 1 mois gratuit inclus</div>
+      <div class="pricing-price"><sup>€</sup>12<span style="font-size:28px">,99</span></div>
+      <div class="pricing-period">par mois · annulable à tout moment</div>
+      <ul class="pricing-features">
+        <li>Biens et locataires illimités</li>
+        <li>Suivi des paiements mensuel</li>
+        <li>Génération de quittances PDF</li>
+        <li>Relances par email en 1 clic</li>
+        <li>Export annuel pour la déclaration fiscale</li>
+        <li>Accès mobile, tablette et ordinateur</li>
+        <li>Support par email</li>
+      </ul>
+      <a href="VOTRE_STRIPE_PAYMENT_LINK" class="pricing-cta">Commencer gratuitement →</a>
+      <p class="pricing-note">Puis 12,99€/mois · Aucun engagement · Résiliable en 1 clic</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ───────────────────────────── -->
+<section style="background: var(--blue-50);">
+  <div class="container">
+    <div class="eyebrow">Témoignages</div>
+    <h2 class="section-title">Ce que disent nos propriétaires.</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Je gérais tout sur Excel depuis 8 ans. LouerFacile m'a fait gagner au moins 2 heures par mois. La génération de quittances en un clic, c'est magique.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Pierre L.</div>
+          <div class="author-role">Propriétaire de 3 biens, Lyon</div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">L'export annuel m'a sauvé la vie pour ma déclaration 2044. Tout est bien organisé par bien, c'est exactement ce qu'il me fallait.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Sophie M.</div>
+          <div class="author-role">Propriétaire de 2 biens, Paris</div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">La relance automatique par email a réglé mon problème de locataire en retard sans que j'aie à avoir une conversation gênante. Parfait.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Marc D.</div>
+          <div class="author-role">Propriétaire de 4 biens, Bordeaux</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────── -->
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="eyebrow" style="text-align:center">FAQ</div>
+    <h2 class="section-title" style="text-align:center">Questions fréquentes.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Est-ce que le mois gratuit nécessite une carte bancaire ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Non. Vous pouvez essayer LouerFacile pendant 1 mois complet sans renseigner aucune carte bancaire. À la fin de l'essai, vous décidez si vous souhaitez continuer.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Combien de biens puis-je gérer ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">LouerFacile est conçu pour les propriétaires de 1 à 5 biens. Il n'y a pas de limite dans l'abonnement, vous pouvez ajouter autant de biens et de locataires que vous le souhaitez.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Les quittances sont-elles légalement valides en France ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Oui. Les quittances générées par LouerFacile contiennent toutes les mentions obligatoires selon la législation française : identité du bailleur et du locataire, adresse du bien, montant du loyer et des charges, et période concernée.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Puis-je annuler à tout moment ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Oui, sans frais ni préavis. Vous pouvez résilier votre abonnement en un clic depuis votre espace client Stripe. Aucun engagement de durée.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Mes données sont-elles sécurisées ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Oui. Vos données sont hébergées en Europe sur des serveurs sécurisés. Chaque propriétaire n'a accès qu'à ses propres données. Les paiements sont gérés par Stripe, leader mondial de la sécurité des transactions en ligne.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ──────────────────────────────── -->
+<section class="cta-final">
+  <div class="container">
+    <h2 class="display">Prêt à simplifier<br>votre gestion locative ?</h2>
+    <p>Rejoignez les propriétaires qui ont dit adieu à Excel.</p>
+    <a href="VOTRE_STRIPE_PAYMENT_LINK" class="btn-white">Commencer gratuitement →</a>
+    <p class="cta-final-note">1 mois gratuit · Sans carte bancaire · Annulable à tout moment</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">🏠 LouerFacile</div>
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">CGU</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 LouerFacile. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item')
+    const isOpen = item.classList.contains('open')
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'))
+    if (!isOpen) item.classList.add('open')
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible')
+        observer.unobserve(e.target)
+      }
+    })
+  }, { threshold: 0.1 })
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el))
+</script>
+
+</body>
+</html>
