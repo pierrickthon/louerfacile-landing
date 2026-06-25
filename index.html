@@ -3,353 +3,345 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LouerFacile : Gérez vos loyers sans effort</title>
-  <meta name="description" content="LouerFacile simplifie la gestion de vos biens locatifs : suivi des paiements, quittances PDF, relances automatiques. Essai gratuit 1 mois." />
+  <title>LouerFacile - Gérez vos loyers sans effort</title>
+  <meta name="description" content="LouerFacile simplifie la gestion de vos biens locatifs : suivi des paiements, quittances PDF, relances. Essai gratuit 1 mois." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* ── TOKENS ─────────────────────────────────── */
+    /* TOKENS */
     :root {
-      --blue-900: #0F2557;
-      --blue-700: #1A3E99;
-      --blue-500: #2D60E8;
-      --blue-100: #E8EFFE;
-      --blue-50:  #F4F7FF;
-      --green:    #16A34A;
-      --green-50: #F0FDF4;
-      --gray-900: #111827;
-      --gray-600: #4B5563;
-      --gray-400: #9CA3AF;
-      --gray-200: #E5E7EB;
-      --gray-100: #F3F4F6;
-      --white:    #FFFFFF;
-      --radius:   12px;
-      --shadow:   0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+      --bg:         #111111;
+      --surface:    #1A1A1A;
+      --surface-2:  #222222;
+      --border:     #2A2A2A;
+      --green:      #22C55E;
+      --green-dim:  rgba(34,197,94,.12);
+      --green-glow: 0 0 24px rgba(34,197,94,.25);
+      --blue:       #3B82F6;
+      --blue-dim:   rgba(59,130,246,.12);
+      --blue-glow:  0 0 24px rgba(59,130,246,.25);
+      --text:       #F9FAFB;
+      --text-2:     #9CA3AF;
+      --text-3:     #4B5563;
+      --radius:     12px;
     }
 
-    /* ── RESET ──────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      font-size: 16px;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
-      color: var(--gray-900);
-      background: var(--white);
       -webkit-font-smoothing: antialiased;
     }
-    img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
-    /* ── LAYOUT ─────────────────────────────────── */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 80px 0; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-    /* ── TYPOGRAPHY ─────────────────────────────── */
+    /* TYPOGRAPHY */
     .display {
       font-family: 'Sora', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -.02em;
-      color: var(--blue-900);
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.03em;
     }
     .section-title {
       font-family: 'Sora', sans-serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
-      color: var(--blue-900);
       line-height: 1.2;
     }
     .eyebrow {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: .08em;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--blue-500);
+      color: var(--green);
       margin-bottom: 12px;
     }
 
-    /* ── NAVBAR ─────────────────────────────────── */
+    /* NAVBAR */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--gray-200);
+      background: rgba(17,17,17,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 60px;
+      height: 58px;
     }
     .logo {
       font-family: 'Sora', sans-serif;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      color: var(--blue-900);
+      color: var(--text);
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      color: var(--gray-600);
+      color: var(--text-2);
       transition: color .15s;
     }
-    .nav-links a:hover { color: var(--blue-500); }
+    .nav-links a:hover { color: var(--text); }
     .btn-nav {
-      background: var(--blue-500);
-      color: var(--white) !important;
-      padding: 8px 18px;
+      background: var(--green) !important;
+      color: #000 !important;
+      padding: 7px 18px;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
-      transition: background .15s;
+      transition: opacity .15s;
     }
-    .btn-nav:hover { background: var(--blue-700) !important; color: var(--white) !important; }
+    .btn-nav:hover { opacity: .85; }
 
-    /* ── HERO ───────────────────────────────────── */
+    /* HERO */
     .hero {
-      background: linear-gradient(160deg, var(--blue-50) 0%, var(--white) 60%);
-      padding: 100px 0 80px;
-      border-bottom: 1px solid var(--gray-200);
+      padding: 110px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(34,197,94,.07) 0%, transparent 70%);
+      pointer-events: none;
     }
     .hero-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 72px;
       align-items: center;
+      position: relative;
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--green-50);
-      border: 1px solid #BBF7D0;
+      background: var(--green-dim);
+      border: 1px solid rgba(34,197,94,.3);
       color: var(--green);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 100px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
+    .hero-title { color: var(--text); }
+    .hero-title .accent-green { color: var(--green); }
+    .hero-title .accent-blue { color: var(--blue); }
     .hero-sub {
-      font-size: 18px;
-      color: var(--gray-600);
-      margin-top: 16px;
-      max-width: 460px;
+      font-size: 17px;
+      color: var(--text-2);
+      margin-top: 18px;
       line-height: 1.7;
+      max-width: 440px;
     }
     .hero-cta {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 32px;
+      gap: 14px;
+      margin-top: 36px;
       flex-wrap: wrap;
     }
     .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--blue-500);
-      color: var(--white);
-      padding: 14px 28px;
+      background: var(--green);
+      color: #000;
+      padding: 13px 26px;
       border-radius: var(--radius);
-      font-size: 15px;
-      font-weight: 600;
-      transition: background .15s, transform .1s;
+      font-size: 14px;
+      font-weight: 700;
+      transition: opacity .15s, transform .1s;
+      box-shadow: var(--green-glow);
     }
-    .btn-primary:hover { background: var(--blue-700); transform: translateY(-1px); }
-    .btn-secondary {
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-ghost {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--gray-600);
+      color: var(--text-2);
       font-size: 14px;
       font-weight: 500;
+      border: 1px solid var(--border);
+      padding: 12px 22px;
+      border-radius: var(--radius);
+      transition: border-color .15s, color .15s;
     }
-    .btn-secondary:hover { color: var(--blue-500); }
-    .hero-note {
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--gray-400);
-    }
+    .btn-ghost:hover { border-color: var(--text-3); color: var(--text); }
+    .hero-note { font-size: 12px; color: var(--text-3); margin-top: 14px; }
 
-    /* ── HERO CARD (mockup) ─────────────────────── */
-    .hero-visual {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    /* HERO MOCKUP */
+    .hero-visual { display: flex; flex-direction: column; gap: 10px; }
     .mock-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 16px 20px;
-      box-shadow: var(--shadow);
     }
     .mock-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
-    .mock-title { font-size: 13px; font-weight: 600; color: var(--gray-900); }
-    .mock-month { font-size: 12px; color: var(--gray-400); }
+    .mock-title { font-size: 12px; font-weight: 600; color: var(--text); }
+    .mock-month { font-size: 11px; color: var(--text-3); }
     .mock-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--gray-100);
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
       font-size: 13px;
+      gap: 8px;
     }
     .mock-row:last-child { border-bottom: none; }
-    .mock-name { font-weight: 500; color: var(--gray-900); }
-    .mock-amount { font-weight: 600; color: var(--gray-900); }
-    .badge-paid { background: #DCFCE7; color: #15803D; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
-    .badge-late { background: #FEE2E2; color: #DC2626; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
-    .badge-pending { background: #FEF9C3; color: #A16207; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
-    .mock-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .mock-name { font-weight: 500; color: var(--text); flex: 1; }
+    .mock-amount { font-weight: 600; color: var(--text); }
+    .badge-paid { background: rgba(34,197,94,.15); color: var(--green); font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 100px; white-space: nowrap; }
+    .badge-late { background: rgba(239,68,68,.15); color: #F87171; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 100px; white-space: nowrap; }
+    .badge-pending { background: rgba(234,179,8,.15); color: #FCD34D; font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 100px; white-space: nowrap; }
+    .mock-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .mock-stat {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 12px 16px;
-      box-shadow: var(--shadow);
+      padding: 14px 16px;
     }
-    .mock-stat-label { font-size: 11px; color: var(--gray-400); margin-bottom: 4px; }
-    .mock-stat-value { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--blue-900); }
+    .mock-stat-label { font-size: 11px; color: var(--text-3); margin-bottom: 4px; }
+    .mock-stat-value { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); }
     .mock-stat-value.green { color: var(--green); }
+    .mock-stat-value.blue { color: var(--blue); }
 
-    /* ── LOGOS / SOCIAL PROOF ───────────────────── */
+    /* PROOF BAR */
     .proof {
-      background: var(--gray-100);
-      padding: 28px 0;
-      border-bottom: 1px solid var(--gray-200);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0;
+      background: var(--surface);
     }
     .proof-inner {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
-      font-size: 14px;
-      color: var(--gray-600);
+      font-size: 13px;
+      color: var(--text-2);
     }
-    .proof-stat {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 500;
-    }
-    .proof-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gray-400); }
+    .proof-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-3); }
 
-    /* ── FEATURES ───────────────────────────────── */
+    /* FEATURES */
+    .features { padding: 96px 0; }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 48px;
+      gap: 16px;
+      margin-top: 52px;
     }
     .feature-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px 24px;
-      transition: box-shadow .2s, transform .2s;
+      transition: border-color .2s;
     }
-    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .feature-card:hover { border-color: var(--text-3); }
     .feature-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--blue-100);
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
       margin-bottom: 16px;
     }
-    .feature-title { font-size: 15px; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
-    .feature-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+    .feature-icon.green { background: var(--green-dim); }
+    .feature-icon.blue { background: var(--blue-dim); }
+    .feature-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
 
-    /* ── HOW IT WORKS ───────────────────────────── */
-    .how { background: var(--blue-50); }
+    /* HOW */
+    .how { padding: 96px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      margin-top: 48px;
-      position: relative;
+      gap: 40px;
+      margin-top: 52px;
     }
-    .step {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
+    .step { display: flex; flex-direction: column; gap: 14px; }
     .step-num {
-      width: 36px;
-      height: 36px;
-      background: var(--blue-500);
-      color: var(--white);
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Sora', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       flex-shrink: 0;
     }
-    .step-title { font-size: 15px; font-weight: 600; color: var(--gray-900); }
-    .step-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+    .step-num.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+    .step-num.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(59,130,246,.3); }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .step-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
 
-    /* ── PRICING ────────────────────────────────── */
+    /* PRICING */
+    .pricing { padding: 96px 0; text-align: center; }
     .pricing-card {
-      max-width: 420px;
-      margin: 48px auto 0;
-      background: var(--white);
-      border: 2px solid var(--blue-500);
+      max-width: 400px;
+      margin: 52px auto 0;
+      background: var(--surface);
+      border: 1px solid var(--green);
       border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(45,96,232,.12);
+      padding: 40px 36px;
+      box-shadow: var(--green-glow);
     }
     .pricing-badge {
       display: inline-block;
-      background: var(--green-50);
+      background: var(--green-dim);
       color: var(--green);
-      border: 1px solid #BBF7D0;
-      font-size: 13px;
+      border: 1px solid rgba(34,197,94,.3);
+      font-size: 12px;
       font-weight: 600;
       padding: 4px 14px;
       border-radius: 100px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .pricing-price {
       font-family: 'Sora', sans-serif;
-      font-size: 52px;
-      font-weight: 700;
-      color: var(--blue-900);
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--text);
       line-height: 1;
     }
-    .pricing-price sup { font-size: 24px; vertical-align: super; }
-    .pricing-period { font-size: 14px; color: var(--gray-400); margin-top: 6px; }
+    .pricing-price sup { font-size: 26px; vertical-align: super; color: var(--green); }
+    .pricing-period { font-size: 13px; color: var(--text-3); margin-top: 6px; }
     .pricing-features {
       list-style: none;
-      margin: 28px 0;
+      margin: 32px 0;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -359,78 +351,80 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 14px;
-      color: var(--gray-600);
+      font-size: 13px;
+      color: var(--text-2);
     }
     .pricing-features li::before {
       content: '✓';
-      width: 20px;
-      height: 20px;
-      background: var(--green-50);
+      width: 18px;
+      height: 18px;
+      background: var(--green-dim);
       color: var(--green);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 700;
       flex-shrink: 0;
     }
     .pricing-cta {
       display: block;
-      background: var(--blue-500);
-      color: var(--white);
+      background: var(--green);
+      color: #000;
       padding: 14px;
       border-radius: var(--radius);
-      font-size: 15px;
-      font-weight: 600;
-      transition: background .15s;
-      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: opacity .15s;
     }
-    .pricing-cta:hover { background: var(--blue-700); }
-    .pricing-note { font-size: 12px; color: var(--gray-400); margin-top: 14px; }
+    .pricing-cta:hover { opacity: .85; }
+    .pricing-note { font-size: 12px; color: var(--text-3); margin-top: 16px; }
 
-    /* ── TESTIMONIALS ───────────────────────────── */
+    /* TESTIMONIALS */
+    .testimonials { padding: 96px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 48px;
+      gap: 16px;
+      margin-top: 52px;
     }
     .testimonial-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
+      background: var(--bg);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 28px 24px;
     }
-    .stars { color: #FBBF24; font-size: 16px; letter-spacing: 2px; margin-bottom: 12px; }
-    .testimonial-text { font-size: 14px; color: var(--gray-600); line-height: 1.7; font-style: italic; }
-    .testimonial-author { margin-top: 16px; }
-    .author-name { font-size: 14px; font-weight: 600; color: var(--gray-900); }
-    .author-role { font-size: 12px; color: var(--gray-400); }
+    .stars { color: var(--green); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+    .testimonial-text { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .testimonial-author { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .author-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .author-role { font-size: 12px; color: var(--text-3); margin-top: 2px; }
 
-    /* ── FAQ ────────────────────────────────────── */
-    .faq { background: var(--gray-100); }
+    /* FAQ */
+    .faq { padding: 96px 0; }
     .faq-list {
-      max-width: 720px;
-      margin: 48px auto 0;
+      max-width: 680px;
+      margin: 52px auto 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
     .faq-item {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
+      transition: border-color .2s;
     }
+    .faq-item.open { border-color: var(--text-3); }
     .faq-q {
       width: 100%;
       text-align: left;
       padding: 18px 20px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
-      color: var(--gray-900);
+      color: var(--text);
       background: none;
       border: none;
       cursor: pointer;
@@ -439,46 +433,60 @@
       justify-content: space-between;
       gap: 12px;
     }
-    .faq-q:hover { color: var(--blue-500); }
-    .faq-icon { font-size: 18px; color: var(--blue-500); flex-shrink: 0; transition: transform .2s; }
+    .faq-q:hover { color: var(--green); }
+    .faq-icon { font-size: 18px; color: var(--green); flex-shrink: 0; transition: transform .2s; }
     .faq-a {
       display: none;
       padding: 0 20px 18px;
-      font-size: 14px;
-      color: var(--gray-600);
+      font-size: 13px;
+      color: var(--text-2);
       line-height: 1.7;
     }
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    /* ── CTA FINAL ──────────────────────────────── */
+    /* CTA FINAL */
     .cta-final {
-      background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
+      padding: 112px 24px;
       text-align: center;
-      padding: 96px 24px;
+      position: relative;
+      overflow: hidden;
     }
-    .cta-final .display { color: var(--white); }
-    .cta-final p { color: rgba(255,255,255,.7); font-size: 18px; margin-top: 16px; }
-    .cta-final .btn-white {
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-final .display { position: relative; }
+    .cta-final p { color: var(--text-2); font-size: 17px; margin-top: 16px; position: relative; }
+    .cta-final-note { color: var(--text-3); font-size: 12px; margin-top: 16px; position: relative; }
+    .btn-primary-blue {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--white);
-      color: var(--blue-700);
+      background: var(--blue);
+      color: #fff;
       padding: 14px 32px;
       border-radius: var(--radius);
       font-size: 15px;
       font-weight: 700;
-      margin-top: 36px;
-      transition: transform .15s, box-shadow .15s;
+      margin-top: 40px;
+      position: relative;
+      box-shadow: var(--blue-glow);
+      transition: opacity .15s, transform .1s;
     }
-    .cta-final .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-    .cta-final-note { color: rgba(255,255,255,.5); font-size: 13px; margin-top: 14px; }
+    .btn-primary-blue:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* ── FOOTER ─────────────────────────────────── */
+    /* FOOTER */
     footer {
-      background: var(--blue-900);
-      border-top: 1px solid rgba(255,255,255,.08);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
       padding: 32px 0;
     }
     .footer-inner {
@@ -488,52 +496,35 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .footer-logo {
-      font-family: 'Sora', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--white);
-    }
-    .footer-copy { font-size: 13px; color: rgba(255,255,255,.4); }
+    .footer-logo { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+    .footer-logo span { color: var(--green); }
+    .footer-copy { font-size: 12px; color: var(--text-3); }
     .footer-links { display: flex; gap: 20px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .15s; }
-    .footer-links a:hover { color: var(--white); }
+    .footer-links a { font-size: 12px; color: var(--text-3); transition: color .15s; }
+    .footer-links a:hover { color: var(--text); }
 
-    /* ── RESPONSIVE ─────────────────────────────── */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .features-grid { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 28px; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
-      section { padding: 56px 0; }
-    }
-    @media (max-width: 600px) {
-      .mock-stats { grid-template-columns: 1fr 1fr; }
-      .pricing-card { padding: 28px 20px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
 
-    /* ── ANIMATIONS ─────────────────────────────── */
+    /* SCROLL ANIMATIONS */
     @media (prefers-reduced-motion: no-preference) {
-      .fade-up {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity .5s ease, transform .5s ease;
-      }
-      .fade-up.visible {
-        opacity: 1;
-        transform: none;
-      }
+      .fade-up { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+      .fade-up.visible { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ─────────────────────────────────── -->
+<!-- NAVBAR -->
 <nav>
   <div class="container nav-inner">
-    <div class="logo">🏠 LouerFacile</div>
+    <div class="logo">Louer<span>Facile</span></div>
     <div class="nav-links">
       <a href="#features">Fonctionnalités</a>
       <a href="#how">Comment ça marche</a>
@@ -544,24 +535,29 @@
   </div>
 </nav>
 
-<!-- ── HERO ───────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
   <div class="container hero-inner">
     <div>
-      <div class="hero-badge">🎁 1 mois gratuit, sans engagement</div>
-      <h1 class="display">Gérez vos loyers<br>sans Excel, sans stress.</h1>
-      <p class="hero-sub">LouerFacile centralise vos biens, suit vos paiements et génère vos quittances en un clic, pensé pour les propriétaires de 1 à 5 biens.</p>
+      <div class="hero-badge">1 mois gratuit, sans engagement</div>
+      <h1 class="display hero-title">
+        Vos loyers,<br>
+        <span class="accent-green">suivis.</span>
+        <span class="accent-blue"> Vos quittances,</span><br>
+        générées.
+      </h1>
+      <p class="hero-sub">LouerFacile centralise vos biens, suit vos paiements et génère vos quittances en un clic. Pensé pour les propriétaires de 1 à 5 biens qui veulent arrêter de jongler avec Excel.</p>
       <div class="hero-cta">
         <a href="https://buy.stripe.com/test_28E14p9hg9uEbnT4Lg8AE00" class="btn-primary">Essayer gratuitement →</a>
-        <a href="#how" class="btn-secondary">Voir comment ça marche ↓</a>
+        <a href="#how" class="btn-ghost">Voir comment ça marche</a>
       </div>
-      <p class="hero-note">Aucune carte bancaire requise pendant l'essai · Annulable à tout moment</p>
+      <p class="hero-note">Sans carte bancaire pendant l'essai · Annulable à tout moment</p>
     </div>
     <div class="hero-visual fade-up">
       <div class="mock-stats">
         <div class="mock-stat">
           <div class="mock-stat-label">Loyers attendus</div>
-          <div class="mock-stat-value">2 400€</div>
+          <div class="mock-stat-value blue">2 400€</div>
         </div>
         <div class="mock-stat">
           <div class="mock-stat-label">Loyers reçus</div>
@@ -593,93 +589,93 @@
   </div>
 </section>
 
-<!-- ── SOCIAL PROOF ───────────────────────────── -->
+<!-- PROOF -->
 <div class="proof">
   <div class="container proof-inner">
-    <span class="proof-stat">🏠 Conçu pour les propriétaires particuliers</span>
+    <span>Conçu pour les propriétaires particuliers</span>
     <span class="proof-dot"></span>
-    <span class="proof-stat">📄 Quittances conformes à la loi française</span>
+    <span>Quittances conformes à la loi française</span>
     <span class="proof-dot"></span>
-    <span class="proof-stat">🔒 Données sécurisées et hébergées en Europe</span>
+    <span>Données hébergées en Europe</span>
     <span class="proof-dot"></span>
-    <span class="proof-stat">📱 Accessible sur mobile, tablette et ordinateur</span>
+    <span>Mobile, tablette et ordinateur</span>
   </div>
 </div>
 
-<!-- ── FEATURES ───────────────────────────────── -->
-<section id="features">
+<!-- FEATURES -->
+<section id="features" class="features">
   <div class="container">
     <div class="eyebrow">Fonctionnalités</div>
     <h2 class="section-title">Tout ce dont vous avez besoin,<br>rien de superflu.</h2>
     <div class="features-grid">
       <div class="feature-card fade-up">
-        <div class="feature-icon">🏠</div>
-        <div class="feature-title">Gestion des biens & locataires</div>
-        <div class="feature-desc">Ajoutez vos biens et vos locataires en quelques secondes. Toutes les informations au même endroit, accessibles partout.</div>
+        <div class="feature-icon green"></div>
+        <div class="feature-title">Biens et locataires</div>
+        <div class="feature-desc">Ajoutez vos biens et locataires en quelques secondes. Toutes les informations accessibles en un endroit.</div>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-icon">💶</div>
-        <div class="feature-title">Suivi des paiements en temps réel</div>
-        <div class="feature-desc">Visualisez d'un coup d'œil qui a payé, qui est en retard, et depuis combien de jours. Fini les tableaux Excel interminables.</div>
+        <div class="feature-icon blue"></div>
+        <div class="feature-title">Suivi des paiements</div>
+        <div class="feature-desc">Visualisez qui a payé, qui est en retard et depuis combien de jours. Fini les tableaux Excel.</div>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-icon">📄</div>
+        <div class="feature-icon green"></div>
         <div class="feature-title">Quittances PDF en 1 clic</div>
-        <div class="feature-desc">Générez des quittances légales et professionnelles instantanément. Conformes à la législation française, prêtes à envoyer.</div>
+        <div class="feature-desc">Quittances légales et professionnelles générées instantanément, conformes à la législation française.</div>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-icon">📧</div>
+        <div class="feature-icon blue"></div>
         <div class="feature-title">Relances par email</div>
-        <div class="feature-desc">Envoyez une relance professionnelle à votre locataire en un clic. Plus besoin de rédiger le même email à chaque fois.</div>
+        <div class="feature-desc">Envoyez une relance professionnelle à votre locataire en retard en un seul clic.</div>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-icon">📊</div>
-        <div class="feature-title">Export annuel pour votre déclaration</div>
-        <div class="feature-desc">Téléchargez un récapitulatif de tous vos loyers perçus, par bien, prêt à utiliser pour votre déclaration de revenus fonciers.</div>
+        <div class="feature-icon green"></div>
+        <div class="feature-title">Export pour votre déclaration</div>
+        <div class="feature-desc">Récapitulatif annuel par bien, prêt à utiliser pour votre déclaration de revenus fonciers (formulaire 2044).</div>
       </div>
       <div class="feature-card fade-up">
-        <div class="feature-icon">📱</div>
-        <div class="feature-title">Accessible sur tous vos appareils</div>
-        <div class="feature-desc">Depuis votre téléphone, tablette ou ordinateur. Vos données sont synchronisées en temps réel, où que vous soyez.</div>
+        <div class="feature-icon blue"></div>
+        <div class="feature-title">Tous vos appareils</div>
+        <div class="feature-desc">Téléphone, tablette ou ordinateur. Vos données synchronisées partout, en temps réel.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── HOW IT WORKS ───────────────────────────── -->
+<!-- HOW -->
 <section id="how" class="how">
   <div class="container">
     <div class="eyebrow">Comment ça marche</div>
     <h2 class="section-title">Opérationnel en moins de 5 minutes.</h2>
     <div class="steps">
       <div class="step fade-up">
-        <div class="step-num">1</div>
+        <div class="step-num green">1</div>
         <div class="step-title">Créez votre compte</div>
-        <div class="step-desc">Inscrivez-vous en 30 secondes avec votre email. Aucune carte bancaire requise pendant le mois d'essai gratuit.</div>
+        <div class="step-desc">Inscription en 30 secondes avec votre email. Aucune carte bancaire requise pendant le mois d'essai gratuit.</div>
       </div>
       <div class="step fade-up">
-        <div class="step-num">2</div>
+        <div class="step-num blue">2</div>
         <div class="step-title">Ajoutez vos biens et locataires</div>
-        <div class="step-desc">Renseignez vos propriétés (adresse, loyer, charges) et associez-y vos locataires. Simple et rapide.</div>
+        <div class="step-desc">Renseignez vos propriétés et associez-y vos locataires. Simple, rapide, sans formation nécessaire.</div>
       </div>
       <div class="step fade-up">
-        <div class="step-num">3</div>
+        <div class="step-num green">3</div>
         <div class="step-title">Gérez vos loyers chaque mois</div>
-        <div class="step-desc">Générez les loyers du mois en un clic, suivez les paiements, envoyez les quittances. Tout est automatisé.</div>
+        <div class="step-desc">Générez les loyers du mois en un clic, suivez les paiements, envoyez les quittances. Tout est là.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PRICING ────────────────────────────────── -->
-<section id="pricing">
-  <div class="container" style="text-align: center;">
+<!-- PRICING -->
+<section id="pricing" class="pricing">
+  <div class="container">
     <div class="eyebrow">Tarifs</div>
     <h2 class="section-title">Un prix simple et transparent.</h2>
     <div class="pricing-card fade-up">
-      <div class="pricing-badge">🎁 1 mois gratuit inclus</div>
-      <div class="pricing-price"><sup>€</sup>12<span style="font-size:28px">,99</span></div>
-      <div class="pricing-period">par mois · annulable à tout moment</div>
+      <div class="pricing-badge">1 mois gratuit inclus</div>
+      <div class="pricing-price"><sup>€</sup>12<span style="font-size:30px;font-weight:700">,99</span></div>
+      <div class="pricing-period">par mois, annulable à tout moment</div>
       <ul class="pricing-features">
         <li>Biens et locataires illimités</li>
         <li>Suivi des paiements mensuel</li>
@@ -689,21 +685,21 @@
         <li>Accès mobile, tablette et ordinateur</li>
         <li>Support par email</li>
       </ul>
-      <a href="VOTRE_STRIPE_PAYMENT_LINK" class="pricing-cta">Commencer gratuitement →</a>
+      <a href="https://buy.stripe.com/test_28E14p9hg9uEbnT4Lg8AE00" class="pricing-cta">Commencer gratuitement →</a>
       <p class="pricing-note">Puis 12,99€/mois · Aucun engagement · Résiliable en 1 clic</p>
     </div>
   </div>
 </section>
 
-<!-- ── TESTIMONIALS ───────────────────────────── -->
-<section style="background: var(--blue-50);">
+<!-- TESTIMONIALS -->
+<section class="testimonials">
   <div class="container">
     <div class="eyebrow">Témoignages</div>
     <h2 class="section-title">Ce que disent nos propriétaires.</h2>
     <div class="testimonials-grid">
       <div class="testimonial-card fade-up">
         <div class="stars">★★★★★</div>
-        <p class="testimonial-text">Je gérais tout sur Excel depuis 8 ans. LouerFacile m'a fait gagner au moins 2 heures par mois. La génération de quittances en un clic, c'est magique.</p>
+        <p class="testimonial-text">Je gérais tout sur Excel depuis 8 ans. LouerFacile m'a fait gagner au moins 2 heures par mois. La génération de quittances en un clic, c'est exactement ce qu'il me fallait.</p>
         <div class="testimonial-author">
           <div class="author-name">Pierre L.</div>
           <div class="author-role">Propriétaire de 3 biens, Lyon</div>
@@ -711,7 +707,7 @@
       </div>
       <div class="testimonial-card fade-up">
         <div class="stars">★★★★★</div>
-        <p class="testimonial-text">L'export annuel m'a sauvé la vie pour ma déclaration 2044. Tout est bien organisé par bien, c'est exactement ce qu'il me fallait.</p>
+        <p class="testimonial-text">L'export annuel m'a vraiment simplifié la vie pour ma déclaration fiscale. Tout est organisé par bien, c'est clair et directement utilisable.</p>
         <div class="testimonial-author">
           <div class="author-name">Sophie M.</div>
           <div class="author-role">Propriétaire de 2 biens, Paris</div>
@@ -719,7 +715,7 @@
       </div>
       <div class="testimonial-card fade-up">
         <div class="stars">★★★★★</div>
-        <p class="testimonial-text">La relance automatique par email a réglé mon problème de locataire en retard sans que j'aie à avoir une conversation gênante. Parfait.</p>
+        <p class="testimonial-text">La relance par email a réglé mon problème de locataire en retard sans que j'aie à avoir une conversation gênante. Simple et efficace.</p>
         <div class="testimonial-author">
           <div class="author-name">Marc D.</div>
           <div class="author-role">Propriétaire de 4 biens, Bordeaux</div>
@@ -729,65 +725,50 @@
   </div>
 </section>
 
-<!-- ── FAQ ────────────────────────────────────── -->
+<!-- FAQ -->
 <section id="faq" class="faq">
   <div class="container">
     <div class="eyebrow" style="text-align:center">FAQ</div>
     <h2 class="section-title" style="text-align:center">Questions fréquentes.</h2>
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Est-ce que le mois gratuit nécessite une carte bancaire ?
-          <span class="faq-icon">+</span>
-        </button>
+        <button class="faq-q" onclick="toggleFaq(this)">Le mois gratuit nécessite-t-il une carte bancaire ?<span class="faq-icon">+</span></button>
         <div class="faq-a">Non. Vous pouvez essayer LouerFacile pendant 1 mois complet sans renseigner aucune carte bancaire. À la fin de l'essai, vous décidez si vous souhaitez continuer.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Combien de biens puis-je gérer ?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">LouerFacile est conçu pour les propriétaires de 1 à 5 biens. Il n'y a pas de limite dans l'abonnement, vous pouvez ajouter autant de biens et de locataires que vous le souhaitez.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Combien de biens puis-je gérer ?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Il n'y a pas de limite. LouerFacile est pensé pour les propriétaires de 1 à 5 biens, mais vous pouvez en ajouter autant que vous le souhaitez.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Les quittances sont-elles légalement valides en France ?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Oui. Les quittances générées par LouerFacile contiennent toutes les mentions obligatoires selon la législation française : identité du bailleur et du locataire, adresse du bien, montant du loyer et des charges, et période concernée.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Les quittances sont-elles légalement valides en France ?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Oui. Les quittances générées contiennent toutes les mentions obligatoires selon la législation française : identité du bailleur et du locataire, adresse du bien, montant du loyer et des charges, et période concernée.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Puis-je annuler à tout moment ?
-          <span class="faq-icon">+</span>
-        </button>
+        <button class="faq-q" onclick="toggleFaq(this)">Puis-je annuler à tout moment ?<span class="faq-icon">+</span></button>
         <div class="faq-a">Oui, sans frais ni préavis. Vous pouvez résilier votre abonnement en un clic depuis votre espace client Stripe. Aucun engagement de durée.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Mes données sont-elles sécurisées ?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Oui. Vos données sont hébergées en Europe sur des serveurs sécurisés. Chaque propriétaire n'a accès qu'à ses propres données. Les paiements sont gérés par Stripe, leader mondial de la sécurité des transactions en ligne.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Mes données sont-elles sécurisées ?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Oui. Vos données sont hébergées en Europe sur des serveurs sécurisés. Chaque propriétaire n'a accès qu'à ses propres données. Les paiements sont gérés par Stripe, référence mondiale de la sécurité des transactions.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CTA FINAL ──────────────────────────────── -->
+<!-- CTA FINAL -->
 <section class="cta-final">
   <div class="container">
     <h2 class="display">Prêt à simplifier<br>votre gestion locative ?</h2>
     <p>Rejoignez les propriétaires qui ont dit adieu à Excel.</p>
-    <a href="VOTRE_STRIPE_PAYMENT_LINK" class="btn-white">Commencer gratuitement →</a>
+    <a href="https://buy.stripe.com/test_28E14p9hg9uEbnT4Lg8AE00" class="btn-primary-blue">Commencer gratuitement →</a>
     <p class="cta-final-note">1 mois gratuit · Sans carte bancaire · Annulable à tout moment</p>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
   <div class="container footer-inner">
-    <div class="footer-logo">🏠 LouerFacile</div>
+    <div class="footer-logo">Louer<span>Facile</span></div>
     <div class="footer-links">
       <a href="#">Mentions légales</a>
       <a href="#">CGU</a>
@@ -798,7 +779,6 @@
 </footer>
 
 <script>
-  // FAQ accordion
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item')
     const isOpen = item.classList.contains('open')
@@ -806,16 +786,11 @@
     if (!isOpen) item.classList.add('open')
   }
 
-  // Scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible')
-        observer.unobserve(e.target)
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) }
     })
   }, { threshold: 0.1 })
-
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el))
 </script>
 
