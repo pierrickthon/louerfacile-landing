@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* TOKENS */
     :root {
       --bg:         #111111;
       --surface:    #1A1A1A;
@@ -40,7 +39,6 @@
 
     .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-    /* TYPOGRAPHY */
     .display {
       font-family: 'Sora', sans-serif;
       font-size: clamp(2.2rem, 5.5vw, 3.6rem);
@@ -63,7 +61,6 @@
       margin-bottom: 12px;
     }
 
-    /* NAVBAR */
     nav {
       position: sticky;
       top: 0;
@@ -107,7 +104,6 @@
     }
     .btn-nav:hover { opacity: .85; }
 
-    /* HERO */
     .hero {
       padding: 110px 0 90px;
       position: relative;
@@ -190,7 +186,6 @@
     .btn-ghost:hover { border-color: var(--text-3); color: var(--text); }
     .hero-note { font-size: 12px; color: var(--text-3); margin-top: 14px; }
 
-    /* HERO MOCKUP */
     .hero-visual { display: flex; flex-direction: column; gap: 10px; }
     .mock-card {
       background: var(--surface);
@@ -233,7 +228,6 @@
     .mock-stat-value.green { color: var(--green); }
     .mock-stat-value.blue { color: var(--blue); }
 
-    /* PROOF BAR */
     .proof {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -251,7 +245,6 @@
     }
     .proof-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-3); }
 
-    /* FEATURES */
     .features { padding: 96px 0; }
     .features-grid {
       display: grid;
@@ -282,7 +275,6 @@
     .feature-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
     .feature-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
 
-    /* HOW */
     .how { padding: 96px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .steps {
       display: grid;
@@ -308,7 +300,6 @@
     .step-title { font-size: 15px; font-weight: 600; color: var(--text); }
     .step-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; }
 
-    /* PRICING */
     .pricing { padding: 96px 0; text-align: center; }
     .pricing-card {
       max-width: 400px;
@@ -381,7 +372,6 @@
     .pricing-cta:hover { opacity: .85; }
     .pricing-note { font-size: 12px; color: var(--text-3); margin-top: 16px; }
 
-    /* TESTIMONIALS */
     .testimonials { padding: 96px 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .testimonials-grid {
       display: grid;
@@ -401,7 +391,6 @@
     .author-name { font-size: 13px; font-weight: 600; color: var(--text); }
     .author-role { font-size: 12px; color: var(--text-3); margin-top: 2px; }
 
-    /* FAQ */
     .faq { padding: 96px 0; }
     .faq-list {
       max-width: 680px;
@@ -445,7 +434,6 @@
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    /* CTA FINAL */
     .cta-final {
       padding: 112px 24px;
       text-align: center;
@@ -483,7 +471,6 @@
     }
     .btn-primary-blue:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* FOOTER */
     footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -503,7 +490,6 @@
     .footer-links a { font-size: 12px; color: var(--text-3); transition: color .15s; }
     .footer-links a:hover { color: var(--text); }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .features-grid { grid-template-columns: 1fr; }
@@ -512,7 +498,6 @@
       .nav-links { display: none; }
     }
 
-    /* SCROLL ANIMATIONS */
     @media (prefers-reduced-motion: no-preference) {
       .fade-up { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
       .fade-up.visible { opacity: 1; transform: none; }
@@ -521,7 +506,6 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav>
   <div class="container nav-inner">
     <div class="logo">Louer<span>Facile</span></div>
@@ -530,12 +514,11 @@
       <a href="#how">Comment ça marche</a>
       <a href="#pricing">Tarifs</a>
       <a href="#faq">FAQ</a>
-      <a href="https://gestion-loyers-phi.vercel.app/" class="btn-nav">Se connecter</a>
+      <a href="https://app.louerfacile.pro" class="btn-nav">Se connecter</a>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container hero-inner">
     <div>
@@ -589,7 +572,6 @@
   </div>
 </section>
 
-<!-- PROOF -->
 <div class="proof">
   <div class="container proof-inner">
     <span>Conçu pour les propriétaires particuliers</span>
@@ -602,7 +584,6 @@
   </div>
 </div>
 
-<!-- FEATURES -->
 <section id="features" class="features">
   <div class="container">
     <div class="eyebrow">Fonctionnalités</div>
@@ -642,7 +623,6 @@
   </div>
 </section>
 
-<!-- HOW -->
 <section id="how" class="how">
   <div class="container">
     <div class="eyebrow">Comment ça marche</div>
@@ -667,7 +647,6 @@
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing" class="pricing">
   <div class="container">
     <div class="eyebrow">Tarifs</div>
@@ -691,7 +670,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials">
   <div class="container">
     <div class="eyebrow">Témoignages</div>
@@ -725,7 +703,6 @@
   </div>
 </section>
 
-<!-- FAQ -->
 <section id="faq" class="faq">
   <div class="container">
     <div class="eyebrow" style="text-align:center">FAQ</div>
@@ -755,7 +732,6 @@
   </div>
 </section>
 
-<!-- CTA FINAL -->
 <section class="cta-final">
   <div class="container">
     <h2 class="display">Prêt à simplifier<br>votre gestion locative ?</h2>
@@ -765,7 +741,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container footer-inner">
     <div class="footer-logo">Louer<span>Facile</span></div>
