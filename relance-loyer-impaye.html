@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lettre Relance Loyer Impayé Gratuite — Modèle PDF | LouerFacile</title>
+  <meta name="description" content="Générez gratuitement une lettre de relance pour loyer impayé en PDF. Modèle conforme, professionnel et prêt à envoyer en moins d'une minute." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #111111;
+      --surface: #1A1A1A;
+      --border: #2A2A2A;
+      --green: #22C55E;
+      --green-dim: rgba(34,197,94,.12);
+      --green-glow: 0 0 24px rgba(34,197,94,.25);
+      --blue: #3B82F6;
+      --text: #F9FAFB;
+      --text-2: #9CA3AF;
+      --text-3: #4B5563;
+      --radius: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17,17,17,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .logo { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; color: var(--text); }
+    .logo span { color: var(--green); }
+    .btn-nav { background: var(--green); color: #000; padding: 7px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+    .btn-nav:hover { opacity: .85; }
+
+    .hero { padding: 56px 0 40px; text-align: center; }
+    .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    h1 { font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -.03em; margin-bottom: 14px; }
+    .hero-sub { font-size: 16px; color: var(--text-2); max-width: 520px; margin: 0 auto 32px; }
+
+    .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; }
+    .form-section-title { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; margin-top: 24px; }
+    .form-section-title:first-child { margin-top: 0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 12px; font-weight: 500; color: var(--text-3); }
+    input, select, textarea {
+      background: #111111;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .15s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--green); }
+    input::placeholder, textarea::placeholder { color: var(--text-3); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .relance-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+    .relance-type-btn {
+      background: #111111;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all .15s;
+      text-align: left;
+    }
+    .relance-type-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+    .relance-type-btn:hover { border-color: var(--text-3); color: var(--text); }
+    .relance-type-label { font-size: 11px; color: var(--text-3); margin-top: 3px; display: block; }
+
+    .preview-box {
+      background: #0A0A0A;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.8;
+      white-space: pre-wrap;
+      margin-top: 16px;
+    }
+
+    .btn-generate { display: block; width: 100%; background: var(--green); color: #000; border: none; border-radius: var(--radius); padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; box-shadow: var(--green-glow); transition: opacity .15s; margin-top: 24px; }
+    .btn-generate:hover { opacity: .88; }
+
+    .cta-box { background: var(--surface); border: 1px solid var(--green); border-radius: 16px; padding: 32px; text-align: center; box-shadow: var(--green-glow); margin: 40px 0; }
+    .cta-box h2 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .cta-box p { font-size: 14px; color: var(--text-2); margin-bottom: 20px; }
+    .btn-cta { display: inline-block; background: var(--green); color: #000; padding: 12px 28px; border-radius: var(--radius); font-size: 14px; font-weight: 700; box-shadow: var(--green-glow); transition: opacity .15s; }
+    .btn-cta:hover { opacity: .88; }
+    .cta-note { font-size: 12px; color: var(--text-3); margin-top: 10px; }
+
+    .faq-section { padding: 40px 0; }
+    .faq-section h2 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .faq-item h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .faq-item p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 0; text-align: center; }
+    footer p { font-size: 12px; color: var(--text-3); }
+    footer a { color: var(--green); }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .relance-type-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Louer<span>Facile</span></div>
+    <a href="https://app.louerfacile.pro" class="btn-nav">Essai gratuit</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Outil gratuit</div>
+    <h1>Lettre de relance<br>loyer impayé gratuite</h1>
+    <p class="hero-sub">Générez en un clic une lettre de relance professionnelle pour votre locataire en retard. Trois niveaux de relance disponibles, au format PDF prêt à envoyer.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="form-card">
+
+    <div class="form-section-title">Niveau de relance</div>
+    <div class="relance-type-grid">
+      <button class="relance-type-btn active" onclick="setType('amiable', this)">
+        Relance amiable
+        <span class="relance-type-label">1er rappel, ton courtois</span>
+      </button>
+      <button class="relance-type-btn" onclick="setType('ferme', this)">
+        Relance ferme
+        <span class="relance-type-label">2e rappel, ton plus direct</span>
+      </button>
+      <button class="relance-type-btn" onclick="setType('mise_en_demeure', this)">
+        Mise en demeure
+        <span class="relance-type-label">Dernière étape avant procédure</span>
+      </button>
+      <button class="relance-type-btn" onclick="setType('garant', this)">
+        Relance au garant
+        <span class="relance-type-label">Contacter le garant du locataire</span>
+      </button>
+    </div>
+
+    <div class="form-section-title">Informations</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Prénom du propriétaire</label>
+        <input type="text" id="owner_first" placeholder="Jean" oninput="updatePreview()" />
+      </div>
+      <div class="form-group">
+        <label>Nom du propriétaire</label>
+        <input type="text" id="owner_last" placeholder="Dupont" oninput="updatePreview()" />
+      </div>
+      <div class="form-group">
+        <label>Prénom du locataire</label>
+        <input type="text" id="tenant_first" placeholder="Marie" oninput="updatePreview()" />
+      </div>
+      <div class="form-group">
+        <label>Nom du locataire</label>
+        <input type="text" id="tenant_last" placeholder="Martin" oninput="updatePreview()" />
+      </div>
+      <div class="form-group full">
+        <label>Adresse du logement</label>
+        <input type="text" id="property_address" placeholder="24 avenue Victor Hugo, 69001 Lyon" oninput="updatePreview()" />
+      </div>
+      <div class="form-group">
+        <label>Montant du loyer dû (€)</label>
+        <input type="number" id="amount" placeholder="750" oninput="updatePreview()" />
+      </div>
+      <div class="form-group">
+        <label>Mois concerné</label>
+        <input type="month" id="period" oninput="updatePreview()" />
+      </div>
+    </div>
+
+    <div class="form-section-title">Aperçu de la lettre</div>
+    <div class="preview-box" id="preview">Remplissez les champs ci-dessus pour voir votre lettre...</div>
+
+    <button class="btn-generate" onclick="generatePDF()">Télécharger la lettre en PDF →</button>
+  </div>
+
+  <div class="cta-box">
+    <h2>Fini les relances manuelles.</h2>
+    <p>LouerFacile envoie automatiquement les relances par email à vos locataires en retard, vous notifie dès qu'un loyer est impayé, et suit l'historique de chaque paiement. 1 mois gratuit, sans carte bancaire.</p>
+    <a href="https://app.louerfacile.pro" class="btn-cta">Essayer gratuitement →</a>
+    <p class="cta-note">Puis 12,99€/mois · Annulable à tout moment</p>
+  </div>
+
+  <div class="faq-section">
+    <h2>Questions fréquentes sur le loyer impayé</h2>
+    <div class="faq-item">
+      <h3>Que faire quand un locataire ne paie pas son loyer ?</h3>
+      <p>La première étape est toujours la relance amiable par écrit ou par email. Si le locataire ne répond pas, une mise en demeure par lettre recommandée est recommandée. En cas de persistance, le propriétaire peut saisir la commission de conciliation ou engager une procédure judiciaire. Il est important d'agir rapidement car les délais de prescription sont courts.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Combien de temps avant d'agir en cas de loyer impayé ?</h3>
+      <p>Il est conseillé d'envoyer une première relance dès le 5-10 du mois si le loyer n'est pas arrivé. Plus vous attendez, plus la dette s'accumule. En pratique, au-delà de 2 mois d'impayés, le dialogue devient plus difficile.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Peut-on contacter le garant en cas de loyer impayé ?</h3>
+      <p>Oui, le propriétaire peut contacter le garant dès le premier impayé si le bail le prévoit. La caution solidaire permet d'agir simultanément contre le locataire et son garant. La caution simple ne peut être sollicitée qu'après avoir tenté d'obtenir le paiement du locataire.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Quelle est la différence entre une relance et une mise en demeure ?</h3>
+      <p>Une relance est un rappel informel ou semi-formel. Une mise en demeure est un acte juridique formel, envoyé en lettre recommandée avec accusé de réception, qui met officiellement le locataire en défaut et constitue la dernière étape avant une action en justice. Elle doit mentionner le montant exact dû et un délai pour régulariser.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Peut-on envoyer une relance par email ?</h3>
+      <p>Oui, l'email est valide comme preuve de démarche amiable. Pour une mise en demeure officielle, privilégiez toutefois la lettre recommandée avec accusé de réception, qui a une valeur juridique supérieure en cas de litige.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 <a href="https://louerfacile.pro">LouerFacile</a> · <a href="https://louerfacile.pro">Accueil</a> · <a href="https://louerfacile.pro/quittance-loyer-gratuite">Générateur de quittance</a> · <a href="https://app.louerfacile.pro">Se connecter</a></p>
+  </div>
+</footer>
+
+<script>
+  let currentType = 'amiable'
+
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = String(today.getMonth() + 1).padStart(2, '0')
+  document.getElementById('period').value = `${year}-${month}`
+
+  function setType(type, btn) {
+    currentType = type
+    document.querySelectorAll('.relance-type-btn').forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    updatePreview()
+  }
+
+  function getValues() {
+    const ownerFirst = document.getElementById('owner_first').value || '[Prénom propriétaire]'
+    const ownerLast = document.getElementById('owner_last').value || '[Nom propriétaire]'
+    const tenantFirst = document.getElementById('tenant_first').value || '[Prénom locataire]'
+    const tenantLast = document.getElementById('tenant_last').value || '[Nom locataire]'
+    const address = document.getElementById('property_address').value || '[Adresse du logement]'
+    const amount = document.getElementById('amount').value || '[Montant]'
+    const periodValue = document.getElementById('period').value
+    const periodDate = periodValue ? new Date(periodValue + '-01') : new Date()
+    const monthLabel = periodDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })
+    const dateToday = today.toLocaleDateString('fr-FR')
+    return { ownerFirst, ownerLast, tenantFirst, tenantLast, address, amount, monthLabel, dateToday }
+  }
+
+  function generateText(v) {
+    const texts = {
+      amiable: `${v.ownerFirst} ${v.ownerLast}
+Propriétaire
+
+À ${v.tenantFirst} ${v.tenantLast}
+Locataire du logement situé au ${v.address}
+
+Le ${v.dateToday}
+
+Objet : Rappel de loyer — ${v.monthLabel}
+
+Madame, Monsieur,
+
+Sauf erreur ou omission de ma part, je n'ai pas reçu le règlement de votre loyer du mois de ${v.monthLabel}, d'un montant de ${v.amount} €.
+
+Je vous rappelle que votre loyer est dû le premier de chaque mois conformément à notre contrat de bail.
+
+Je vous serais reconnaissant(e) de bien vouloir régulariser cette situation dans les meilleurs délais.
+
+Si vous avez déjà effectué ce paiement, merci de ne pas tenir compte de ce courrier.
+
+Cordialement,
+
+${v.ownerFirst} ${v.ownerLast}`,
+
+      ferme: `${v.ownerFirst} ${v.ownerLast}
+Propriétaire
+
+À ${v.tenantFirst} ${v.tenantLast}
+Locataire du logement situé au ${v.address}
+
+Le ${v.dateToday}
+
+Objet : Deuxième rappel — Loyer impayé de ${v.monthLabel}
+
+Madame, Monsieur,
+
+Malgré mon précédent rappel, je constate que le loyer du mois de ${v.monthLabel} d'un montant de ${v.amount} € n'a toujours pas été réglé à ce jour.
+
+Je vous demande de régulariser cette situation dans un délai de 8 jours à compter de la réception de ce courrier.
+
+Passé ce délai, je me verrai contraint(e) d'entreprendre les démarches nécessaires pour recouvrer les sommes dues.
+
+Cordialement,
+
+${v.ownerFirst} ${v.ownerLast}`,
+
+      mise_en_demeure: `${v.ownerFirst} ${v.ownerLast}
+Propriétaire
+
+À ${v.tenantFirst} ${v.tenantLast}
+Locataire du logement situé au ${v.address}
+
+Le ${v.dateToday}
+
+Lettre recommandée avec accusé de réception
+
+Objet : Mise en demeure de payer — Loyer de ${v.monthLabel}
+
+Madame, Monsieur,
+
+Par la présente, je vous mets en demeure de régler, dans un délai de 8 jours à compter de la réception de ce courrier, la somme de ${v.amount} € correspondant au loyer du mois de ${v.monthLabel} demeuré impayé à ce jour.
+
+À défaut de paiement dans ce délai, je me verrai dans l'obligation de saisir la juridiction compétente pour obtenir le paiement des sommes dues ainsi que la résiliation de votre bail.
+
+Je vous rappelle que les frais de procédure seraient à votre charge.
+
+${v.ownerFirst} ${v.ownerLast}`,
+
+      garant: `${v.ownerFirst} ${v.ownerLast}
+Propriétaire
+
+À [Prénom Nom du garant]
+Garant de ${v.tenantFirst} ${v.tenantLast}
+
+Le ${v.dateToday}
+
+Objet : Appel à la caution — Loyer impayé de ${v.monthLabel}
+
+Madame, Monsieur,
+
+Vous vous êtes porté(e) garant(e) de Monsieur/Madame ${v.tenantFirst} ${v.tenantLast} pour la location du logement situé au ${v.address}.
+
+Je vous informe que le loyer du mois de ${v.monthLabel}, d'un montant de ${v.amount} €, n'a pas été réglé à ce jour malgré mes relances auprès du locataire.
+
+En vertu de l'acte de cautionnement signé entre nous, je vous demande de bien vouloir régler cette somme dans un délai de 8 jours.
+
+Cordialement,
+
+${v.ownerFirst} ${v.ownerLast}`
+    }
+    return texts[currentType]
+  }
+
+  function updatePreview() {
+    const v = getValues()
+    document.getElementById('preview').textContent = generateText(v)
+  }
+
+  function generatePDF() {
+    const { jsPDF } = window.jspdf
+    const v = getValues()
+    const text = generateText(v)
+    const doc = new jsPDF()
+    const pageWidth = doc.internal.pageSize.getWidth()
+
+    doc.setFontSize(10)
+    doc.setFont('helvetica', 'normal')
+    const lines = doc.splitTextToSize(text, pageWidth - 40)
+    doc.text(lines, 20, 25)
+
+    doc.setFontSize(8)
+    doc.setTextColor(150)
+    doc.text('Document généré via louerfacile.pro', pageWidth / 2, 285, { align: 'center' })
+
+    const typeLabel = { amiable: 'Relance_amiable', ferme: 'Relance_ferme', mise_en_demeure: 'Mise_en_demeure', garant: 'Relance_garant' }
+    doc.save(`${typeLabel[currentType]}_${v.tenantLast}.pdf`)
+  }
+
+  updatePreview()
+</script>
+
+</body>
+</html>
